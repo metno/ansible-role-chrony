@@ -80,9 +80,6 @@
   failed_when: false
   when: crhony_disable_ntpd
 
-- debug:
-    var: ntpd_running
-
 - name: disable ntpd
   service:
     name: '{{ ntp_service }}'
