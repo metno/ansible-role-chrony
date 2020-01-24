@@ -1,0 +1,13 @@
+# vim: ai et ts=2 st=2 sw=2 :
+---
+- hosts: all
+  become: yes
+  roles:
+    - role: ../../.
+      crhony_disable_ntpd: true
+      chrony_enable: true
+      chrony_ntp_servers:
+        - 0.ubuntu.pool.ntp.org
+        - 1.ubuntu.pool.ntp.org
+        - 2.ubuntu.pool.ntp.org
+        - 3.ubuntu.pool.ntp.org

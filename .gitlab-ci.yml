@@ -1,0 +1,25 @@
+# vim: set et ai ts=2 st=2 sw=2:
+---
+image: alpine:3.10
+
+variables:
+  ANSIBLE_FORCE_COLOR: "true"
+
+stages:
+  - lint
+
+ansible-lint:
+  stage: lint
+  script:
+    - apk update
+    - apk add ansible-lint
+    - ansible-lint -x 204,503,701 -v .
+  only:
+    refs:
+      - pushes
+      - merges
+    changes:
+      - "*yml"
+  tags:
+    - dind
+

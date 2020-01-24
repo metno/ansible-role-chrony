@@ -1,0 +1,38 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+Vagrant.configure("2") do |config|
+  boxes = [
+    { :name => "bionic", :box => "ubuntu/bionic64" },
+    { :name => "xenial", :box => "ubuntu/xenial64" },
+    { :name => "trusty", :box => "ubuntu/trusty64" },
+    { :name => "precise", :box => "ubuntu/precise64" },
+    { :name => "centos8", :box => "centos/8" },
+    { :name => "centos7", :box => "centos/7" },
+    { :name => "centos6", :box => "centos/6" },
+  ]
+  last_octet = 10
+  boxes.each do |opts|
+    config.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+      vb.cpus = 2
+      vb.linked_clone = true
+    end
+    config.vm.define opts[:name] do |config|
+      config.vm.box = opts[:box]
+      config.vm.network "private_network", ip: "10.10.10.#{last_octet}"
+      last_octet += 1
+      if opts[:name] == boxes.last[:name]
+        config.vm.provision "ansible" do |ansible|
+          ansible.compatibility_mode = "2.0"
+          ansible.playbook = "test.yml"
+          ansible.limit = "all"
+        end
+      end
+    end
+  end
+end
+
+
+
