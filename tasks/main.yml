@@ -96,6 +96,7 @@
   template:
     src: 'chrony-{{ chrony_version }}.conf.j2'
     dest: '{{ chrony_path }}/chrony.conf'
+  register: chrony_conf_file
 
 - name: enable chrony service and start
   service:
@@ -104,3 +105,8 @@
     pattern: '{{ "chronyd" if ansible_distribution|lower == "ubuntu" and ansible_distribution_version|int in [12, 14] else omit }}'
     enabled: '{{ chrony_enable }}'
 
+- name: restart chrony when config is changed
+  service:
+    name: '{{ chrony_service }}'
+    state: restarted
+  when: chrony_conf_file is changed
