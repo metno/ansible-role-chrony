@@ -40,6 +40,8 @@ Example Playbook
     - hosts: servers
       roles:
          - role: chrony
+           crhony_disable_ntpd: true
+           chrony_enable: true
            chrony_ntp_servers:
              - 0.ubuntu.pool.ntp.org
              - 1.ubuntu.pool.ntp.org
