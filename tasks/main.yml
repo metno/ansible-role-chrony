@@ -71,11 +71,17 @@
 ## Disable old ntpd
 
 - name: check ntpd is running
-  command: pgrep ntpd
+  shell: |
+    pgrep ntpd
+  args:
+    warn: false
   register: ntpd_running
   changed_when: ntpd_running.rc == 0
   failed_when: false
   when: crhony_disable_ntpd
+
+- debug:
+    var: ntpd_running
 
 - name: disable ntpd
   service:
@@ -84,7 +90,7 @@
     enabled: false
   ignore_errors: true
   when:
-    - ntpd_running.rc == 0
+    - ntpd_running is changed
     - crhony_disable_ntpd
 
 ## Config chrony
