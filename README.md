@@ -6,6 +6,7 @@ chrony
 Version
 -------
 
+* `1.0.2` --- removed unsupported directive for v3
 * `1.0.1` --- fixed restart when config changes
 * `1.0.0` --- initial version
 * `master` --- latest development version
