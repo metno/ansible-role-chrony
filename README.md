@@ -6,6 +6,7 @@ chrony
 Version
 -------
 
+* `1.0.0` --- initial version
 * `master` --- latest development version
 
 Requirements
