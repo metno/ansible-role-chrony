@@ -6,6 +6,7 @@ chrony
 Version
 -------
 
+* `1.1.0` --- ensure NTP traffic on port `123`, for firewall purposes
 * `1.0.2` --- removed unsupported directive for v3
 * `1.0.1` --- fixed restart when config changes
 * `1.0.0` --- initial version
