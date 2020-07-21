@@ -24,7 +24,13 @@ Vagrant.configure("2") do |config|
       config.vm.network "private_network", ip: "10.10.10.#{last_octet}"
       last_octet += 1
       if opts[:name] == boxes.last[:name]
-        config.vm.provision "ansible" do |ansible|
+        config.vm.provision "ansible: check",  type: "ansible", run: "always" do |ansible|
+          ansible.compatibility_mode = "2.0"
+          ansible.playbook = "test.yml"
+          ansible.limit = "all"
+          ansible.raw_arguments = ["--check", "--diff"]
+        end
+        config.vm.provision "ansible: run", type: "ansible" do |ansible|
           ansible.compatibility_mode = "2.0"
           ansible.playbook = "test.yml"
           ansible.limit = "all"

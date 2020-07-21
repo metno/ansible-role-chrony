@@ -6,6 +6,7 @@ chrony
 Version
 -------
 
+* `1.1.2` --- tested with Ansible 2.9.11
 * `1.1.1` --- prepare for github
 * `1.1.0` --- ensure NTP traffic on port `123`, for firewall purposes
 * `1.0.2` --- removed unsupported directive for v3
