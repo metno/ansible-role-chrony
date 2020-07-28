@@ -6,6 +6,7 @@ chrony
 Version
 -------
 
+* `1.2.0` --- added ubuntu focal, 20.04
 * `1.1.2` --- tested with Ansible 2.9.11
 * `1.1.1` --- prepare for github
 * `1.1.0` --- ensure NTP traffic on port `123`, for firewall purposes
@@ -19,6 +20,7 @@ Requirements
 
 This role is limited to
 
+* Ubuntu 20.04 - Bionic
 * Ubuntu 18.04 - Bionic
 * Ubuntu 16.04 - Xenial
 * Ubuntu 14.04 - Trusty

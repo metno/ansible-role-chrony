@@ -2,11 +2,11 @@
 ---
 - name: check if we're running supported os
   assert:
-    fail_msg: "{{ role_name }} only supports ubuntu versions 12, 14, 16, 18 and centos versions 6, 7!"
+    fail_msg: "{{ role_name }} only supports ubuntu versions 12, 14, 16, 18, 20 and centos versions 6, 7, 8!"
     success_msg: "{{ role_name }} supports {{ ansible_distribution }} version {{ ansible_distribution_version }}"
     quiet: "{{ not ansible_check_mode }}"
     that:
-      ( ansible_distribution|lower == "ubuntu" and ansible_distribution_version|int in [12, 14, 16, 18] )
+      ( ansible_distribution|lower == "ubuntu" and ansible_distribution_version|int in [12, 14, 16, 18, 20] )
       or ( ansible_distribution|lower == "centos" and ansible_distribution_major_version|int in [6, 7, 8] )
 
 - name: specific config for debian and redhat systems
@@ -42,7 +42,7 @@
   set_fact:
     chrony_version: v3
   when:
-    ( ansible_distribution|lower == "ubuntu" and ansible_distribution_version|int in [18] ) or
+    ( ansible_distribution|lower == "ubuntu" and ansible_distribution_version|int in [18, 20] ) or
     ( ansible_distribution|lower == "centos" and ansible_distribution_major_version|int in [7, 8] )
 
 ## Install chrony

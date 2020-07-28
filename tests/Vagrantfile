@@ -1,9 +1,11 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+CURRENT_PATH = File.dirname(File.expand_path(__FILE__))
 
 Vagrant.configure("2") do |config|
   boxes = [
+    { :name => "focal", :box => "ubuntu/focal64" },
     { :name => "bionic", :box => "ubuntu/bionic64" },
     { :name => "xenial", :box => "ubuntu/xenial64" },
     { :name => "trusty", :box => "ubuntu/trusty64" },
@@ -14,15 +16,19 @@ Vagrant.configure("2") do |config|
   ]
   last_octet = 10
   boxes.each do |opts|
-    config.vm.provider "virtualbox" do |vb|
-      vb.memory = "1024"
-      vb.cpus = 2
-      vb.linked_clone = true
-    end
     config.vm.define opts[:name] do |config|
       config.vm.box = opts[:box]
       config.vm.network "private_network", ip: "10.10.10.#{last_octet}"
       last_octet += 1
+      config.vm.provider "virtualbox" do |vb|
+        vb.memory = "1024"
+        vb.cpus = 2
+        vb.linked_clone = true
+        # Workaround for Ubuntu Cloud init VMs (focal)
+        # Create virtual serial port, output to file console-output.OS.
+        vb.customize ["modifyvm", :id, "--uart1", "0x3F8", "4"]
+        vb.customize ["modifyvm", :id, "--uartmode1", "file", "#{CURRENT_PATH}/console-output.#{opts[:name]}"]
+      end
       if opts[:name] == boxes.last[:name]
         config.vm.provision "ansible: check",  type: "ansible", run: "always" do |ansible|
           ansible.compatibility_mode = "2.0"
@@ -39,6 +45,3 @@ Vagrant.configure("2") do |config|
     end
   end
 end
-
-
-
