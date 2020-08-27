@@ -96,6 +96,7 @@
   template:
     src: 'chrony-{{ chrony_version }}.conf.j2'
     dest: '{{ chrony_path }}/chrony.conf'
+    mode: 0644
   register: chrony_conf_file
 
 - name: enable chrony service and start
