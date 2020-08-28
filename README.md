@@ -6,6 +6,7 @@ chrony
 Version
 -------
 
+* `1.2.2` --- remove ubuntu precise from testing
 * `1.2.1` --- fix lint problem
 * `1.2.0` --- added ubuntu focal, 20.04
 * `1.1.2` --- tested with Ansible 2.9.11
@@ -25,7 +26,6 @@ This role is limited to
 * Ubuntu 18.04 - Bionic
 * Ubuntu 16.04 - Xenial
 * Ubuntu 14.04 - Trusty
-* Ubuntu 12.04 - Precise
 * CentOS 8
 * CentOS 7
 * CentOS 6
