@@ -6,7 +6,7 @@ chrony
 Version
 -------
 
-* `1.2.2` --- remove ubuntu precise from testing
+* `1.3.0` --- remove ubuntu precise from testing
 * `1.2.1` --- fix lint problem
 * `1.2.0` --- added ubuntu focal, 20.04
 * `1.1.2` --- tested with Ansible 2.9.11
