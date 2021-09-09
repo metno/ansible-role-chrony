@@ -1,9 +1,0 @@
-{% for server in chrony_ntp_servers %}
-server {{ server }}
-{% endfor %}
-maxupdateskew 100.0
-driftfile /var/lib/chrony/chrony.drift
-keyfile {{ chrony_path }}/chrony.keys
-commandkey 1
-rtconutc
-acquisitionport 123

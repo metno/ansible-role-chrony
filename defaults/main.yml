@@ -1,6 +1,6 @@
 # vim: ai et ts=2 st=2 sw=2 :
 ---
-crhony_disable_ntpd: true
+chrony_disable_ntpd: true
 chrony_enable: true
 chrony_ntp_servers:
   - 0.pool.ntp.org

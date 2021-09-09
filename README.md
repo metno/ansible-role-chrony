@@ -6,6 +6,7 @@ chrony
 Version
 -------
 
+* `1.4.0` --- add rhel8 and remove trusty+centos6
 * `1.3.0` --- remove ubuntu precise from testing
 * `1.2.1` --- fix lint problem
 * `1.2.0` --- added ubuntu focal, 20.04
@@ -22,19 +23,18 @@ Requirements
 
 This role is limited to
 
-* Ubuntu 20.04 - Bionic
+* Ubuntu 20.04 - Focal
 * Ubuntu 18.04 - Bionic
 * Ubuntu 16.04 - Xenial
-* Ubuntu 14.04 - Trusty
 * CentOS 8
 * CentOS 7
-* CentOS 6
+* RHEL 8
 
 Role Variables
 --------------
 
 
-* `crhony_disable_ntpd` --- disable the old NTP daemon, default `true`
+* `chrony_disable_ntpd` --- disable the old NTP daemon, default `true`
 * `chrony_enable` --- enable `chrony` NTP daemon, default `true`
 * `chrony_ntp_servers` --- list of NTP servers in use, default `['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org']`
 
@@ -49,7 +49,7 @@ Example Playbook
     - hosts: servers
       roles:
          - role: chrony
-           crhony_disable_ntpd: true
+           chrony_disable_ntpd: true
            chrony_enable: true
            chrony_ntp_servers:
              - 0.ubuntu.pool.ntp.org

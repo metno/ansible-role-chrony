@@ -14,14 +14,14 @@ galaxy_info:
     versions:
       - 8
       - 7
-      - 6
   - name: Ubuntu
     versions:
       - 20.04
       - 18.04
       - 16.04
-      - 14.04
-      - 12.04
+  - name: RedHat
+    versions:
+      - 8
 
   galaxy_tags:
     - ntp
