@@ -4,7 +4,7 @@
   become: true
   roles:
     - role: ../../.
-      crhony_disable_ntpd: true
+      chrony_disable_ntpd: true
       chrony_enable: true
       chrony_ntp_servers:
         - 0.ubuntu.pool.ntp.org
