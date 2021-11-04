@@ -26,5 +26,6 @@ galaxy_info:
   galaxy_tags:
     - ntp
     - time
+    - timezone
 
 dependencies: []

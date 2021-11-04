@@ -6,6 +6,7 @@ chrony
 Version
 -------
 
+* `1.5.0` --- add support for setting timezone
 * `1.4.0` --- add rhel8 and remove trusty+centos6
 * `1.3.0` --- remove ubuntu precise from testing
 * `1.2.1` --- fix lint problem
@@ -33,10 +34,10 @@ This role is limited to
 Role Variables
 --------------
 
-
 * `chrony_disable_ntpd` --- disable the old NTP daemon, default `true`
 * `chrony_enable` --- enable `chrony` NTP daemon, default `true`
 * `chrony_ntp_servers` --- list of NTP servers in use, default `['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org']`
+* `chrony_timezone` --- timezone for the system. Run `timedatectl list-timezones` on any systemd system to list available timezones, default `UTC`
 
 Dependencies
 ------------
@@ -56,6 +57,7 @@ Example Playbook
              - 1.ubuntu.pool.ntp.org
              - 2.ubuntu.pool.ntp.org
              - 3.ubuntu.pool.ntp.org
+           chrony_timezone: "Europe/Oslo"
 
 Testing
 -------
@@ -93,5 +95,6 @@ Author Information
 ------------------
 
 Created 2020 by [Arnulf Heimsbakk](mailto:arnulf.heimsbakk@met.no) for MET Norway.
+Modified 2021 by [Silje Amundsen](mailto:siljeba@met.no) for MET Norway.
 
 ###### set vim: spell spelllang=en:
