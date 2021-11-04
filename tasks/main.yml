@@ -104,5 +104,5 @@
 ## Set timezone
 
 - name: set timezone
-  shell: |
-    /usr/bin/timedatectl set-timezone '{{ chrony_timezone }}'
+  timezone:
+    name: '{{ chrony_timezone }}'
