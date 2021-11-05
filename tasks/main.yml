@@ -100,3 +100,9 @@
     name: '{{ chrony_service }}'
     state: restarted
   when: chrony_conf_file is changed
+
+## Set timezone
+
+- name: set timezone
+  timezone:
+    name: '{{ chrony_timezone }}'
