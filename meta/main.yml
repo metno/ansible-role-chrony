@@ -1,7 +1,7 @@
 # vim: ai et ts=2 st=2 sw=2 :
 ---
 galaxy_info:
-  author: Arnulf Heimsbakk
+  author: Arnulf Heimsbakk, Silje Bjølseth Amundsen
   description: Role for managing NTP with chrony
   company: MET Norway
 
@@ -27,4 +27,6 @@ galaxy_info:
     - time
     - timezone
 
+role_name: chrony
+namespace: met
 dependencies: []
