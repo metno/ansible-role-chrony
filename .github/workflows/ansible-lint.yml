@@ -14,7 +14,7 @@ jobs:
       uses: ansible/ansible-lint-action@master
       with:
         targets: ""
-        #override-deps: |
+        override-deps: |
         #  ansible==2.9
-        #  ansible-lint==4.2.0
-        args: "--nocolor"
+          ansible-lint==5.0.7
+        args: ""
