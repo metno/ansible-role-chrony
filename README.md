@@ -6,6 +6,7 @@ chrony
 Version
 -------
 
+* `2.0.0` --- remove ubuntu xenial support + add rtcsync and allow config
 * `1.5.0` --- add support for setting timezone
 * `1.4.0` --- add rhel8 and remove trusty+centos6
 * `1.3.0` --- remove ubuntu precise from testing
@@ -26,7 +27,6 @@ This role is limited to
 
 * Ubuntu 20.04 - Focal
 * Ubuntu 18.04 - Bionic
-* Ubuntu 16.04 - Xenial
 * CentOS 8
 * CentOS 7
 * RHEL 8
@@ -34,9 +34,12 @@ This role is limited to
 Role Variables
 --------------
 
+* `chrony_allow` --- list of IP addresses/networks allowed to connect to chrony, default [127.0.0.1]
+* `chrony_allow_enable` --- enable allow config, default `false`
 * `chrony_disable_ntpd` --- disable the old NTP daemon, default `true`
 * `chrony_enable` --- enable `chrony` NTP daemon, default `true`
 * `chrony_ntp_servers` --- list of NTP servers in use, default `['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org']`
+* `chrony_rtcsync` --- enable kernel synchronization of the real-time clock (RTC), default `false`
 * `chrony_timezone` --- timezone for the system. Run `timedatectl list-timezones` on any systemd system to list available timezones, default `UTC`
 
 Dependencies
@@ -50,6 +53,11 @@ Example Playbook
     - hosts: servers
       roles:
          - role: chrony
+           chrony_allow_enable: true
+           chrony_allow:
+             - 10.10.10.0/24
+             - 127.0.0.1
+             - ::/0
            chrony_disable_ntpd: true
            chrony_enable: true
            chrony_ntp_servers:
@@ -57,6 +65,7 @@ Example Playbook
              - 1.ubuntu.pool.ntp.org
              - 2.ubuntu.pool.ntp.org
              - 3.ubuntu.pool.ntp.org
+           chrony_rtcsync: true
            chrony_timezone: "Europe/Oslo"
 
 Testing
@@ -95,6 +104,6 @@ Author Information
 ------------------
 
 Created 2020 by [Arnulf Heimsbakk](mailto:arnulf.heimsbakk@met.no) for MET Norway.
-Modified 2021 by [Silje Amundsen](mailto:siljeba@met.no) for MET Norway.
+Modified 2022 by [Silje Amundsen](mailto:siljeba@met.no) for MET Norway.
 
 ###### set vim: spell spelllang=en:
