@@ -7,9 +7,8 @@ Vagrant.configure("2") do |config|
   boxes = [
     { :name => "focal", :box => "ubuntu/focal64" },
     { :name => "bionic", :box => "ubuntu/bionic64" },
-    { :name => "xenial", :box => "ubuntu/xenial64" },
-    { :name => "centos8", :box => "centos/8" },
     { :name => "centos7", :box => "centos/7" },
+    { :name => "centos8", :box => "centos/8" },
     { :name => "rhel8", :box => "generic/rhel8" },
   ]
   last_octet = 10

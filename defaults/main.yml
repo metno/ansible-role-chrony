@@ -1,5 +1,8 @@
 # vim: ai et ts=2 st=2 sw=2 :
 ---
+chrony_allow_enable: false
+chrony_allow:
+  - 127.0.0.1
 chrony_disable_ntpd: true
 chrony_enable: true
 chrony_ntp_servers:
@@ -7,4 +10,5 @@ chrony_ntp_servers:
   - 1.pool.ntp.org
   - 2.pool.ntp.org
   - 3.pool.ntp.org
+chrony_rtcsync: false
 chrony_timezone: "UTC"

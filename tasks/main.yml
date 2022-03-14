@@ -2,11 +2,11 @@
 ---
 - name: check if we are running supported os
   assert:
-    fail_msg: "{{ role_name }} only supports ubuntu versions 16, 18, 20, centos versions 7, 8 and RHEL version 8!"
+    fail_msg: "{{ role_name }} only supports ubuntu versions 18, 20, centos versions 7, 8 and RHEL version 8!"
     success_msg: "{{ role_name }} supports {{ ansible_distribution }} version {{ ansible_distribution_version }}"
     quiet: "{{ not ansible_check_mode }}"
     that:
-      ( ansible_distribution|lower == "ubuntu" and ansible_distribution_version|int in [16, 18, 20] )
+      ( ansible_distribution|lower == "ubuntu" and ansible_distribution_version|int in [18, 20] )
       or ( ansible_distribution|lower == "centos" and ansible_distribution_major_version|int in [7, 8] )
       or ( ansible_distribution|lower == "redhat" and ansible_distribution_major_version|int in [8] )
 
@@ -26,21 +26,6 @@
     chrony_service: chronyd
     ntp_service: ntpd
   when: ansible_os_family|lower == "redhat"
-
-- name: set chrony config version 2
-  set_fact:
-    chrony_version: v2
-  when:
-    ( ansible_distribution|lower == "ubuntu" and ansible_distribution_version|int in [16] )
-
-- name: set chrony config version 3
-  set_fact:
-    chrony_version: v3
-  when:
-    ( ansible_distribution|lower == "ubuntu" and ansible_distribution_version|int in [18, 20] ) or
-    ( ansible_distribution|lower == "centos" and ansible_distribution_major_version|int in [7, 8] ) or
-    ( ansible_distribution|lower == "redhat" and ansible_distribution_major_version|int in [8] )
-
 
 ## Install chrony
 
@@ -83,7 +68,7 @@
 
 - name: chrony config
   template:
-    src: 'chrony-{{ chrony_version }}.conf.j2'
+    src: 'chrony.conf.j2'
     dest: '{{ chrony_path }}/chrony.conf'
     mode: 0644
   register: chrony_conf_file
@@ -92,7 +77,6 @@
   service:
     name: '{{ chrony_service }}'
     state: '{{ "started" if chrony_enable else "stopped" }}'
-    pattern: '{{ "chronyd" if ansible_distribution|lower == "ubuntu" and ansible_distribution_version|int in [12, 14] else omit }}'
     enabled: '{{ chrony_enable }}'
 
 - name: restart chrony when config is changed
