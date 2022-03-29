@@ -59,7 +59,6 @@
     name: '{{ ntp_service }}'
     state: stopped
     enabled: false
-  ignore_errors: true
   when:
     - ntpd_running is changed
     - chrony_disable_ntpd
