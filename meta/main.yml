@@ -12,10 +12,10 @@ galaxy_info:
   platforms:
   - name: CentOS
     versions:
-      - 8
       - 7
   - name: Ubuntu
     versions:
+      - 22.04
       - 20.04
       - 18.04
   - name: RedHat
@@ -27,6 +27,6 @@ galaxy_info:
     - time
     - timezone
 
-role_name: chrony
-namespace: met
+#role_name: chrony
+#namespace: met
 dependencies: []

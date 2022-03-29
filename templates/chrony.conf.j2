@@ -8,10 +8,10 @@ keyfile {{ chrony_path }}/chrony.keys
 logchange 0.5
 rtconutc
 acquisitionport 123
-{% if chrony_rtcsync is true %}
+{% if chrony_rtcsync %}
 rtcsync
 {% endif %}
-{% if chrony_allow_enable is true %}
+{% if chrony_allow_enable %}
 {% for network in chrony_allow %}
 allow {{ network }}
 {% endfor %}
