@@ -3,9 +3,16 @@ chrony
 
 `chronyd` is a daemon for synchronisation of the system clock. It can synchronise the clock with NTP servers, reference clocks (e.g. a GPS receiver), and manual input using wristwatch and keyboard via chronyc. It can also operate as an NTPv4 (RFC 5905) server and peer to provide a time service to other computers in the network.
 
+
+Bugs
+----
+Not able to set time in rhel8 due to bug in rhel8
+
+
 Version
 -------
 
+* `2.1.0` --- add ubuntu jammy and removed centos8 support + rettet noe syntax i meta og template
 * `2.0.0` --- remove ubuntu xenial support + add rtcsync and allow config
 * `1.5.0` --- add support for setting timezone
 * `1.4.0` --- add rhel8 and remove trusty+centos6
@@ -25,9 +32,9 @@ Requirements
 
 This role is limited to
 
+* Ubuntu 22.04 - Jammy
 * Ubuntu 20.04 - Focal
 * Ubuntu 18.04 - Bionic
-* CentOS 8
 * CentOS 7
 * RHEL 8
 

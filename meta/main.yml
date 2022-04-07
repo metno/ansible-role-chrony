@@ -4,29 +4,29 @@ galaxy_info:
   author: Arnulf Heimsbakk, Silje Bjølseth Amundsen
   description: Role for managing NTP with chrony
   company: MET Norway
+  role_name: chrony
+  namespace: met
 
   license: GPLv2
 
   min_ansible_version: 2.9
 
   platforms:
-  - name: CentOS
-    versions:
-      - 8
-      - 7
-  - name: Ubuntu
-    versions:
-      - 20.04
-      - 18.04
-  - name: RedHat
-    versions:
-      - 8
+    - name: CentOS
+      versions:
+        - 7
+    - name: Ubuntu
+      versions:
+        - 22.04
+        - 20.04
+        - 18.04
+    - name: RedHat
+      versions:
+        - 8
 
   galaxy_tags:
     - ntp
     - time
     - timezone
 
-role_name: chrony
-namespace: met
 dependencies: []
