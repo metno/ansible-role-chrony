@@ -1,5 +1,5 @@
 {% for server in chrony_ntp_servers %}
-server {{ server }} iburst maxsources 4
+server {{ server }} iburst
 {% endfor %}
 makestep 10 3
 maxupdateskew 100.0
@@ -15,4 +15,13 @@ rtcsync
 {% for network in chrony_allow %}
 allow {{ network }}
 {% endfor %}
+{% endif %}
+{% if chrony_smearing %}
+leapsecmode slew
+maxslewrate 1000
+smoothtime 400 0.001024 leaponly
+{% endif %}
+{% if chrony_log_enable %}
+log {{ chrony_log }}
+logdir {{ chrony_logdir }}
 {% endif %}

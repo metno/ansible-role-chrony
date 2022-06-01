@@ -11,10 +11,14 @@
         - ::/0
       chrony_disable_ntpd: true
       chrony_enable: true
+      chrony_log_enable: true
+      chrony_log: measurements statistics tracking
+      chrony_logdir: /var/log/chrony/
       chrony_ntp_servers:
         - 0.ubuntu.pool.ntp.org
         - 1.ubuntu.pool.ntp.org
         - 2.ubuntu.pool.ntp.org
         - 3.ubuntu.pool.ntp.org
       chrony_rtcsync: true
+      chrony_smearing: true
       chrony_timezone: "Europe/Oslo"
