@@ -12,6 +12,7 @@ Not able to set time in rhel8 due to bug in rhel8
 Version
 -------
 
+* `2.2.0` --- added configuration options to use role for ntp server configuration, including leap second smearing
 * `2.1.0` --- add ubuntu jammy and removed centos8 support + rettet noe syntax i meta og template
 * `2.0.0` --- remove ubuntu xenial support + add rtcsync and allow config
 * `1.5.0` --- add support for setting timezone
@@ -41,13 +42,18 @@ This role is limited to
 Role Variables
 --------------
 
-* `chrony_allow` --- list of IP addresses/networks allowed to connect to chrony, default [127.0.0.1]
 * `chrony_allow_enable` --- enable allow config, default `false`
+* `chrony_allow` --- list of IP addresses/networks allowed to connect to chrony, default [127.0.0.1]
 * `chrony_disable_ntpd` --- disable the old NTP daemon, default `true`
 * `chrony_enable` --- enable `chrony` NTP daemon, default `true`
+* `chrony_log_enable` --- enable logging, default `false`
+* `chrony_log` --- configure logging (requires chrony_logging_enable set to true), default `measurements statistics tracking`
+* `chrony_logdir` --- configure log directory (requires chrony_logging_enable set to true), default `/var/log/chrony/`
 * `chrony_ntp_servers` --- list of NTP servers in use, default `['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org']`
 * `chrony_rtcsync` --- enable kernel synchronization of the real-time clock (RTC), default `false`
+* `chrony_smearing` --- enable leap second smearing (should only be used for NTP servers), default `false`
 * `chrony_timezone` --- timezone for the system. Run `timedatectl list-timezones` on any systemd system to list available timezones, default `UTC`
+
 
 Dependencies
 ------------
@@ -67,12 +73,16 @@ Example Playbook
              - ::/0
            chrony_disable_ntpd: true
            chrony_enable: true
+           chrony_log_enable: true
+           chrony_log: measurements statistics tracking
+           chrony_logdir: /var/log/chrony/
            chrony_ntp_servers:
              - 0.ubuntu.pool.ntp.org
              - 1.ubuntu.pool.ntp.org
              - 2.ubuntu.pool.ntp.org
              - 3.ubuntu.pool.ntp.org
            chrony_rtcsync: true
+           chrony_smearing: true
            chrony_timezone: "Europe/Oslo"
 
 Testing
