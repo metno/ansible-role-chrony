@@ -1,3 +1,4 @@
 skip_list:
   - no-handler  # Tasks that run when changed should likely be handlers
   - fqcn-builtins
+  - deprecated-module
