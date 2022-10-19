@@ -12,6 +12,7 @@ Not able to set time in rhel8 due to bug in rhel8
 Version
 -------
 
+* `2.3.0` --- added RHEL 9 and CentOS Stream 8  support
 * `2.2.0` --- added configuration options to use role for ntp server configuration, including leap second smearing
 * `2.1.0` --- add ubuntu jammy and removed centos8 support + rettet noe syntax i meta og template
 * `2.0.0` --- remove ubuntu xenial support + add rtcsync and allow config
@@ -37,7 +38,9 @@ This role is limited to
 * Ubuntu 20.04 - Focal
 * Ubuntu 18.04 - Bionic
 * CentOS 7
+* CentOS Stream 8
 * RHEL 8
+* RHEL 9
 
 Role Variables
 --------------
