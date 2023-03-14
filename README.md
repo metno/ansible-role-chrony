@@ -12,6 +12,7 @@ Not able to set time in rhel8 due to bug in rhel8
 Version
 -------
 
+* `3.0.1` --- bug fix, ansible-lint
 * `3.0.0` --- updated to ansible version 2.12
 * `2.3.0` --- added RHEL 9 and CentOS Stream 8  support
 * `2.2.0` --- added configuration options to use role for ntp server configuration, including leap second smearing

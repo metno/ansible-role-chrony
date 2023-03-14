@@ -1,7 +1,7 @@
 # vim: ai et ts=2 st=2 sw=2 :
 ---
 - name: Check if we are running supported os
-  assert:
+  ansible.builtin.assert:
     fail_msg: "{{ role_name }} only supports ubuntu versions 18, 20, 22, centos versions 7, and RHEL version 8!"
     success_msg: "{{ role_name }} supports {{ ansible_distribution }} version {{ ansible_distribution_version }}"
     quiet: "{{ not ansible_check_mode }}"
@@ -11,17 +11,18 @@
       or ( ansible_distribution|lower == "redhat" and ansible_distribution_major_version|int in [8, 9] )
 
 - name: Specific config for debian and redhat systems
-  include: "{{ ansible_os_family | lower }}.yml"
+  ansible.builtin.include_tasks:
+    file: "{{ ansible_os_family | lower }}.yml"
 
-- name: Chrony_ variables for ubuntu
-  set_fact:
+- name: Chrony variables for ubuntu
+  ansible.builtin.set_fact:
     chrony_path: /etc/chrony/
     chrony_service: chrony
     ntp_service: ntp
   when: ansible_os_family|lower == "debian"
 
-- name: Chrony_ variables for centos
-  set_fact:
+- name: Chrony variables for centos
+  ansible.builtin.set_fact:
     chrony_path: /etc/
     chrony_service: chronyd
     ntp_service: ntpd
@@ -30,14 +31,14 @@
 ## Install chrony
 
 - name: Install chrony on ubuntu
-  apt:
+  ansible.builtin.apt:
     name: chrony
     cache_valid_time: 3600
     update_cache: true
   when: ansible_os_family|lower == "debian"
 
 - name: Install chrony on centos and redhat
-  yum:
+  ansible.builtin.yum:
     name: chrony
   when:
     - ansible_os_family|lower == "redhat"
@@ -45,7 +46,7 @@
 ## Disable old ntpd
 
 - name: Check ntpd is running
-  shell: |
+  ansible.builtin.shell: |
     pgrep ntpd
   args:
     warn: false
@@ -55,7 +56,7 @@
   when: chrony_disable_ntpd
 
 - name: Disable ntpd
-  service:
+  ansible.builtin.service:
     name: '{{ ntp_service }}'
     state: stopped
     enabled: false
@@ -66,20 +67,20 @@
 ## Config chrony
 
 - name: Chrony config
-  template:
+  ansible.builtin.template:
     src: 'chrony.conf.j2'
     dest: '{{ chrony_path }}/chrony.conf'
-    mode: 0644
+    mode: '0644'
   register: chrony_conf_file
 
 - name: Enable chrony service and start
-  service:
+  ansible.builtin.service:
     name: '{{ chrony_service }}'
     state: '{{ "started" if chrony_enable else "stopped" }}'
     enabled: '{{ chrony_enable }}'
 
 - name: Restart chrony when config is changed
-  service:
+  ansible.builtin.service:
     name: '{{ chrony_service }}'
     state: restarted
   when: chrony_conf_file is changed
