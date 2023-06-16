@@ -9,10 +9,7 @@
       ( ansible_distribution|lower == "ubuntu" and ansible_distribution_version|int in [18, 20, 22] )
       or ( ansible_distribution|lower == "centos" and ansible_distribution_major_version|int in [7, 8] )
       or ( ansible_distribution|lower == "redhat" and ansible_distribution_major_version|int in [8, 9] )
-
-- name: Specific config for debian and redhat systems
-  ansible.builtin.include_tasks:
-    file: "{{ ansible_os_family | lower }}.yml"
+      or ( ansible_distribution|lower == "fedora" and ansible_distribution_major_version|int in [38] )
 
 - name: Chrony variables for ubuntu
   ansible.builtin.set_fact:
@@ -41,7 +38,7 @@
   ansible.builtin.yum:
     name: chrony
   when:
-    - ansible_os_family|lower == "redhat"
+    - ansible_os_family|lower == "redhat" and ansible_distribution|lower != "fedora"
 
 ## Disable old ntpd
 
@@ -53,7 +50,7 @@
   register: ntpd_running
   changed_when: ntpd_running.rc == 0
   failed_when: false
-  when: chrony_disable_ntpd
+  when: chrony_disable_ntpd and ansible_distribution|lower != "fedora"
 
 - name: Disable ntpd
   ansible.builtin.service:
@@ -62,7 +59,6 @@
     enabled: false
   when:
     - ntpd_running is changed
-    - chrony_disable_ntpd
 
 ## Config chrony
 

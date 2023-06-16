@@ -12,6 +12,7 @@ Not able to set time in rhel8 due to bug in rhel8
 Version
 -------
 
+* `3.1.0` --- added support for Fedora CoreOS (FCOS 38.x.x.x) but with no tests
 * `3.0.1` --- bug fix, ansible-lint
 * `3.0.0` --- updated to ansible version 2.12
 * `2.3.0` --- added RHEL 9 and CentOS Stream 8  support
@@ -43,6 +44,7 @@ This role is limited to
 * CentOS Stream 8
 * RHEL 8
 * RHEL 9
+* Fedora CoreOS 38
 
 Role Variables
 --------------
@@ -92,6 +94,9 @@ Example Playbook
 
 Testing
 -------
+
+NOTICE: Fedora CoreOS is tested manually, but currently no automatic tests
+are added for FCOS.
 
 ### Test environment for all OSes
 
