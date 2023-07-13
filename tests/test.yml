@@ -1,9 +1,10 @@
 # vim: ai et ts=2 st=2 sw=2 :
 ---
-- hosts: all
+- name: Test chrony role
+  hosts: all
   become: true
   roles:
-    - role: ../../.
+    - role: ../../.  # noqa role-name[path]
       chrony_allow_enable: true
       chrony_allow:
         - 10.10.10.0/24
