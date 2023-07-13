@@ -12,6 +12,7 @@ Not able to set time in rhel8 due to bug in rhel8
 Version
 -------
 
+* `3.1.1` --- bug fix, ansible-lint
 * `3.1.0` --- added support for Fedora CoreOS (FCOS 38.x.x.x) but with no tests
 * `3.0.1` --- bug fix, ansible-lint
 * `3.0.0` --- updated to ansible version 2.12
