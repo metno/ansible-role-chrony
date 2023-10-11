@@ -59,6 +59,7 @@
     enabled: false
   when:
     - ntpd_running is changed
+    - not ansible_check_mode
 
 ## Config chrony
 
