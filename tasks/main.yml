@@ -42,24 +42,15 @@
 
 ## Disable old ntpd
 
-- name: Check ntpd is running
-  ansible.builtin.shell: |
-    pgrep ntpd
-  args:
-    warn: false
-  register: ntpd_running
-  changed_when: ntpd_running.rc == 0
-  failed_when: false
-  when: chrony_disable_ntpd and ansible_distribution|lower != "fedora"
-
 - name: Disable ntpd
   ansible.builtin.service:
     name: '{{ ntp_service }}'
     state: stopped
     enabled: false
-  when:
-    - ntpd_running is changed
-    - not ansible_check_mode
+  register: stop_service
+  failed_when:
+    - stop_service.failed == true
+    - '"Could not find the requested service" not in stop_service.msg'
 
 ## Config chrony
 
@@ -75,12 +66,15 @@
     name: '{{ chrony_service }}'
     state: '{{ "started" if chrony_enable else "stopped" }}'
     enabled: '{{ chrony_enable }}'
+  when: not ansible_check_mode
 
 - name: Restart chrony when config is changed
   ansible.builtin.service:
     name: '{{ chrony_service }}'
     state: restarted
-  when: chrony_conf_file is changed
+  when:
+    - chrony_conf_file is changed
+    - not ansible_check_mode
 
 ## Set timezone
 
