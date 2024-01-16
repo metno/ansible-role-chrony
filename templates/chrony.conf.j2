@@ -20,6 +20,7 @@ allow {{ network }}
 leapsecmode slew
 maxslewrate 1000
 smoothtime 400 0.001024 leaponly
+local stratum 10
 {% endif %}
 {% if chrony_log_enable %}
 log {{ chrony_log }}
