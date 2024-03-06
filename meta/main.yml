@@ -18,6 +18,7 @@ galaxy_info:
         - "jammy"
         - "focal"
         - "bionic"
+        - "xenial"
     - name: EL
       versions:
         - "7"
