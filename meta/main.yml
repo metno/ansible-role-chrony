@@ -5,7 +5,7 @@ galaxy_info:
   description: Role for managing NTP with chrony
   company: MET Norway
   role_name: chrony
-  namespace: met
+  namespace: metno
 
   license: GPLv2
 
@@ -14,6 +14,7 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
+        - "noble"
         - "jammy"
         - "focal"
         - "bionic"
