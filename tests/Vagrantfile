@@ -5,11 +5,13 @@ CURRENT_PATH = File.dirname(File.expand_path(__FILE__))
 
 Vagrant.configure("2") do |config|
   boxes = [
+    { :name => "noble", :box => "ubuntu/noble64" },
     { :name => "jammy", :box => "ubuntu/jammy64" },
     { :name => "focal", :box => "ubuntu/focal64" },
     { :name => "bionic", :box => "ubuntu/bionic64" },
+    { :name => "xenial", :box => "ubuntu/xenial64" },
     { :name => "centos7", :box => "centos/7" },
-    { :name => "centos8", :box => "centos/stream8" },
+    { :name => "centos8", :box => "generic/centos8s" },
     { :name => "rhel8", :box => "generic/rhel8" },
     { :name => "rhel9", :box => "generic/rhel9" },
   ]
