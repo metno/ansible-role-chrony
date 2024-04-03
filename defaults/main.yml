@@ -16,3 +16,34 @@ chrony_ntp_servers:
 chrony_rtcsync: false
 chrony_smearing: false
 chrony_timezone: "UTC"
+
+# Ideally we could read the supported platforms from meta/main.yml in the role, but
+# ansible-lint does not cover the specified distributions.
+# __packages_supported_platforms: "{{ (lookup('file', 'meta/main.yml') | from_yaml).galaxy_info.platforms }}"
+__packages_supported_platforms:
+  - name: "Ubuntu"
+    versions:
+      - "18"
+      - "20"
+      - "22"
+      - "24"
+  - name: "RedHat"
+    versions:
+      - "8"
+      - "9"
+  - name: "CentOS"
+    versions:
+      - "7"
+      - "8"
+  - name: "Fedora"
+    versions:
+      - "38"
+      - "39"
+  - name: "AlmaLinux"
+    versions:
+      - "8"
+      - "9"
+  - name: "Rocky"
+    versions:
+      - "8"
+      - "9"
