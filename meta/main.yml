@@ -9,7 +9,7 @@ galaxy_info:
 
   license: GPLv2
 
-  min_ansible_version: "2.12"
+  min_ansible_version: "2.16"
 
   platforms:
     - name: Ubuntu
@@ -17,8 +17,6 @@ galaxy_info:
         - "noble"
         - "jammy"
         - "focal"
-        - "bionic"
-        - "xenial"
     - name: EL
       versions:
         - "7"
