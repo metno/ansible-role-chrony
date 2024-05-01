@@ -49,6 +49,8 @@ This role is limited to
 * CentOS Stream 8
 * RHEL 8
 * RHEL 9
+* RHEL family 8
+* RHEL family 9
 * Fedora CoreOS 38
 * Fedora CoreOS 39
 
