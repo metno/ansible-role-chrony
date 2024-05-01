@@ -12,6 +12,7 @@ Not able to set time in rhel8 due to bug in rhel8
 Version
 -------
 
+* `4.0.0` --- Updated for ansible-core 2.16. Removed support for Ubuntu Xenial and Ubuntu Bionic.
 * `3.2.0` --- Added Ubuntu Noble support
 * `3.1.3` --- Allow Fedora CoreOS 39
 * `3.1.2` --- fix checkmode
@@ -44,8 +45,6 @@ This role is limited to
 * Ubuntu 24.04 - Noble
 * Ubuntu 22.04 - Jammy
 * Ubuntu 20.04 - Focal
-* Ubuntu 18.04 - Bionic
-* Ubuntu 16.04 - Xenial
 * CentOS 7
 * CentOS Stream 8
 * RHEL 8
@@ -139,7 +138,7 @@ GPLv2
 Author Information
 ------------------
 
-Created 2020 by [Arnulf Heimsbakk](mailto:arnulf.heimsbakk@met.no) for MET Norway.
-Modified 2022 by [Silje Amundsen](mailto:siljeba@met.no) for MET Norway.
+Created 2020 by IT Infrastructure at MET Norway
+Contactpoint: [IT Infrastructure Basis Team](mailto:it-is-basis@met.no)
 
 ###### set vim: spell spelllang=en:

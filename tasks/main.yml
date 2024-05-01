@@ -3,10 +3,11 @@
 - name: Check if we are running supported os
   ansible.builtin.assert:
     fail_msg: "{{ role_name }} only supports ubuntu versions 16, 18, 20, 22, 24, centos versions 7,8, fedora versions 38,39, and RHEL (and family) versions 8,9!"
+
     success_msg: "{{ role_name }} supports {{ ansible_distribution }} version {{ ansible_distribution_version }}"
     quiet: "{{ not ansible_check_mode }}"
     that:
-      ( ansible_distribution|lower == "ubuntu" and ansible_distribution_version|int in [16, 18, 20, 22, 24] )
+      ( ansible_distribution|lower == "ubuntu" and ansible_distribution_version|int in [20, 22, 24] )
       or ( ansible_distribution|lower == "centos" and ansible_distribution_major_version|int in [7, 8] )
       or ( ansible_os_family|lower == "redhat" and ansible_distribution_major_version|int in [8, 9] )
       or ( ansible_distribution|lower == "fedora" and ansible_distribution_major_version|int in [38, 39] )
@@ -45,8 +46,6 @@
 - name: Check ntpd is running
   ansible.builtin.shell: |
     pgrep ntpd
-  args:
-    warn: false
   register: ntpd_running
   changed_when: ntpd_running.rc == 0
   failed_when: false
