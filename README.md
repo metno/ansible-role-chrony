@@ -12,6 +12,7 @@ Not able to set time in rhel8 due to bug in rhel8
 Version
 -------
 
+* `4.0.1` --- Allow Fedora CoreOS 41 and remove support for older fedora versions.
 * `4.0.0` --- Updated for ansible-core 2.16. Removed support for Ubuntu Xenial and Ubuntu Bionic.
 * `3.2.0` --- Added Ubuntu Noble support
 * `3.1.3` --- Allow Fedora CoreOS 39
@@ -49,8 +50,7 @@ This role is limited to
 * CentOS Stream 8
 * RHEL 8
 * RHEL 9
-* Fedora CoreOS 38
-* Fedora CoreOS 39
+* Fedora CoreOS 41
 
 Role Variables
 --------------
