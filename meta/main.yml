@@ -11,18 +11,6 @@ galaxy_info:
 
   min_ansible_version: "2.16"
 
-  platforms:
-    - name: Ubuntu
-      versions:
-        - "noble"
-        - "jammy"
-        - "focal"
-    - name: EL
-      versions:
-        - "7"
-        - "8"
-        - "9"
-
   galaxy_tags:
     - ntp
     - time
