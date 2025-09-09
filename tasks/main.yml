@@ -34,7 +34,7 @@
   when: ansible_os_family|lower == "debian"
 
 - name: Install chrony on redhat related oses, except fedora distribution
-  ansible.builtin.yum:
+  ansible.builtin.dnf:
     name: chrony
   when:
     - ansible_os_family|lower == "redhat" and ansible_distribution|lower != "fedora"
