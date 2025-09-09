@@ -2,3 +2,4 @@
 .vagrant
 *swp
 tests/console-output.*
+.ansible

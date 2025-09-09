@@ -12,6 +12,7 @@ Not able to set time in rhel8 due to bug in rhel8
 Version
 -------
 
+* `4.0.1` --- Change test setup to use Ansible Molecule
 * `4.0.0` --- Updated for ansible-core 2.16. Removed support for Ubuntu Xenial and Ubuntu Bionic.
 * `3.2.0` --- Added Ubuntu Noble support
 * `3.1.3` --- Allow Fedora CoreOS 39
