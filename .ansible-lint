@@ -1,2 +1,5 @@
 skip_list:
   - no-handler  # Tasks that run when changed should likely be handlers
+
+exclude_paths:
+  - molecule/

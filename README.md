@@ -101,31 +101,26 @@ Example Playbook
 Testing
 -------
 
-NOTICE: Fedora CoreOS is tested manually, but currently no automatic tests
-are added for FCOS.
+Testing is done using Ansible Molecule. It uses Vagrant with libvirt as backend.
 
-### Test environment for all OSes
+To run full test run:
 
 ```bash
-cd tests
-vagrant up
+molecule test
 ```
 
-### Rerun role
-
-Run role on all OSes again.
+To run test step by step run:
 
 ```bash
-vagrant provision
+molecule create
+molecule converge
+molecule verify
+molecule destroy
 ```
 
-### Debug interactively
-
-This uses cluster ssh to work with all vagrant boxes at the same time.
-
-```bash
-vagrant ssh-config > ~/.ssh/config
-cat ~/.ssh/config | grep ^Host | cut -d\  -f2 | xargs cssh
+To run toward specific scenario use `-s` option.
+```
+molecule test -s ubuntu
 ```
 
 License
