@@ -1,0 +1,91 @@
+- name: Verify
+  become: true
+  hosts: all
+  gather_facts: true
+
+  tasks:
+    - name: Gather package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Gather service facts
+      ansible.builtin.service_facts:
+
+    - name: Assert that chrony is installed
+      ansible.builtin.assert:
+        that: "'chrony' in ansible_facts.packages"
+        fail_msg: "The package 'chrony' is NOT installed!"
+        success_msg: "The package 'chrony' is installed."
+
+    - name: Chrony variables for redhat related oses
+      ansible.builtin.set_fact:
+        chrony_path: /etc/
+        chrony_service: chronyd.service
+        ntp_service: ntpd
+      when: ansible_os_family | lower == "redhat"
+
+    - name: Chrony variables for ubuntu
+      ansible.builtin.set_fact:
+        chrony_path: /etc/chrony/
+        chrony_service: chrony
+        ntp_service: ntp
+      when: ansible_os_family | lower == "debian"
+
+    - name: Check if the file exists
+      ansible.builtin.stat:
+        path: "{{ chrony_path }}/chrony.conf"
+      register: chrony_config
+
+    - name: Assert the file exists
+      ansible.builtin.assert:
+        that:
+          - chrony_config.stat.exists
+        fail_msg: "The file {{ chrony_path }}/chrony.conf does not exist!"
+        success_msg: "The file {{ chrony_path }}/chrony.conf exists as expected."
+
+    - name: Check if the service exists
+      ansible.builtin.set_fact:
+        ntp_exists: "{{ ntp_service in ansible_facts.services }}"
+
+    - name: Check if the service exists
+      ansible.builtin.set_fact:
+        chrony_exists: "{{ chrony_service in ansible_facts.services }}"
+
+    - name: Assert that the ntp service is disabled (if it exists)
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services[ntp_service].enabled == false
+        fail_msg: "The service {{ ntp_service }} is enabled"
+        success_msg: "The service {{ ntp_service }} is disabled"
+      when: ntp_exists
+
+    - name: Check the state of the chrony service
+      ansible.builtin.service:
+        name: "{{ chrony_service }}"
+        state: started
+        enabled: yes
+      register: chrony_service_status
+      changed_when: false
+      failed_when: false
+      when: chrony_exists
+
+    - name: Assert that the chrony service is both enabled and running
+      ansible.builtin.assert:
+        that:
+          - chrony_service_status.state == "started"
+          - chrony_service_status.enabled
+        fail_msg: "The service {{ chrony_service }} is either not running or not enabled."
+        success_msg: "The service {{ chrony_service }} is running and enabled."
+      when: chrony_exists
+
+    - name: Get the current timezone
+      ansible.builtin.command: timedatectl show --property=Timezone --value
+      register: timezone_output
+      changed_when: false
+
+    - name: Assert timezone is Europe/Oslo
+      ansible.builtin.assert:
+        that:
+          - timezone_output.stdout == "Europe/Oslo"
+        fail_msg: "The timezone is not set to Europe/Oslo!"
+        success_msg: "The timezone is correctly set to Europe/Oslo."

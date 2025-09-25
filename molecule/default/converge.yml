@@ -1,0 +1,7 @@
+- name: Converge
+  become: true
+  hosts: all
+  gather_facts: true
+
+  roles:
+    - name: metno.chrony

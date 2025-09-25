@@ -7,8 +7,7 @@
     quiet: "{{ not ansible_check_mode }}"
     that:
       ( ansible_distribution|lower == "ubuntu" and ansible_distribution_version|int in [20, 22, 24] )
-      or ( ansible_distribution|lower == "centos" and ansible_distribution_major_version|int in [7, 8] )
-      or ( ansible_distribution|lower == "redhat" and ansible_distribution_major_version|int in [8, 9] )
+      or ( ansible_os_family|lower == "redhat" and ansible_distribution_major_version|int in [7, 8, 9] )
       or ( ansible_distribution|lower == "fedora" and ansible_distribution_major_version|int in [38, 39] )
 
 - name: Chrony variables for ubuntu
@@ -18,10 +17,10 @@
     ntp_service: ntp
   when: ansible_os_family|lower == "debian"
 
-- name: Chrony variables for centos
+- name: Chrony variables for redhat related oses
   ansible.builtin.set_fact:
     chrony_path: /etc/
-    chrony_service: chronyd
+    chrony_service: chronyd.service
     ntp_service: ntpd
   when: ansible_os_family|lower == "redhat"
 
@@ -34,8 +33,8 @@
     update_cache: true
   when: ansible_os_family|lower == "debian"
 
-- name: Install chrony on centos and redhat
-  ansible.builtin.yum:
+- name: Install chrony on redhat related oses, except fedora distribution
+  ansible.builtin.dnf:
     name: chrony
   when:
     - ansible_os_family|lower == "redhat" and ansible_distribution|lower != "fedora"
