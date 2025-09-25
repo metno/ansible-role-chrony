@@ -1,0 +1,40 @@
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+  provision: no
+  cachier: machine
+  parallel: true
+  default_box: 'metno/ubuntu-22.04'
+
+platforms:
+  - name: noble
+    box: metno/ubuntu-24.04
+    box_url: https://vagrant.met.no/meta/ubuntu-24.04.json
+    memory: 2048
+    cpus: 2
+    instance_raw_config_args:
+      - 'vm.synced_folder ".", "/vagrant", disabled: true'
+    provider_options:
+      qemu_use_session: true
+    groups:
+      - ubuntu
+  - name: jammy
+    box: metno/ubuntu-22.04
+    box_url: https://vagrant.met.no/meta/ubuntu-22.04.json
+    memory: 2048
+    cpus: 2
+    instance_raw_config_args:
+      - 'vm.synced_folder ".", "/vagrant", disabled: true'
+    provider_options:
+      qemu_use_session: true
+    groups:
+      - ubuntu
+
+provisioner:
+  name: ansible
+  options:
+    user: root
+
+verifier:
+  name: ansible
