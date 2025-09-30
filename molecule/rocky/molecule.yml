@@ -8,7 +8,7 @@ driver:
   default_box: 'metno/ubuntu-22.04'
 
 platforms:
-  - name: rocky8
+  - name: chrony-rocky8
     box: metno/rockylinux-8
     box_url: https://vagrant.met.no/meta/rockylinux-8.json
     memory: 2048
@@ -19,9 +19,20 @@ platforms:
       qemu_use_session: true
     groups:
       - rocky
-  - name: rocky9
+  - name: chrony-rocky9
     box: metno/rockylinux-9
     box_url: https://vagrant.met.no/meta/rockylinux-9.json
+    memory: 2048
+    cpus: 2
+    instance_raw_config_args:
+      - 'vm.synced_folder ".", "/vagrant", disabled: true'
+    provider_options:
+      qemu_use_session: true
+    groups:
+      - rocky
+  - name: chrony-rocky10
+    box: metno/rockylinux-10
+    box_url: https://vagrant.met.no/meta/rockylinux-10.json
     memory: 2048
     cpus: 2
     instance_raw_config_args:

@@ -8,7 +8,7 @@ driver:
   default_box: 'metno/ubuntu-22.04'
 
 platforms:
-  - name: noble
+  - name: chrony-noble
     box: metno/ubuntu-24.04
     box_url: https://vagrant.met.no/meta/ubuntu-24.04.json
     memory: 2048
@@ -19,7 +19,7 @@ platforms:
       qemu_use_session: true
     groups:
       - ubuntu
-  - name: jammy
+  - name: chrony-jammy
     box: metno/ubuntu-22.04
     box_url: https://vagrant.met.no/meta/ubuntu-22.04.json
     memory: 2048

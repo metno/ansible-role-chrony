@@ -8,7 +8,7 @@ driver:
   default_box: 'metno/ubuntu-22.04'
 
 platforms:
-  - name: noble
+  - name: chrony-noble
     box: metno/ubuntu-24.04
     box_url: https://vagrant.met.no/meta/ubuntu-24.04.json
     memory: 2048
@@ -19,7 +19,7 @@ platforms:
       qemu_use_session: true
     groups:
       - ubuntu
-  - name: jammy
+  - name: chrony-jammy
     box: metno/ubuntu-22.04
     box_url: https://vagrant.met.no/meta/ubuntu-22.04.json
     memory: 2048
@@ -30,7 +30,7 @@ platforms:
       qemu_use_session: true
     groups:
       - ubuntu
-  - name: focal
+  - name: chrony-focal
     box: metno/ubuntu-20.04
     box_url: https://vagrant.met.no/eol/ubuntu-20.04.json
     memory: 2048
@@ -41,7 +41,7 @@ platforms:
       qemu_use_session: true
     groups:
       - ubuntu
-  - name: rocky8
+  - name: chrony-rocky8
     box: metno/rockylinux-8
     box_url: https://vagrant.met.no/meta/rockylinux-8.json
     memory: 2048
@@ -52,7 +52,7 @@ platforms:
       qemu_use_session: true
     groups:
       - rocky
-  - name: rocky9
+  - name: chrony-rocky9
     box: metno/rockylinux-9
     box_url: https://vagrant.met.no/meta/rockylinux-9.json
     memory: 2048
@@ -63,7 +63,18 @@ platforms:
       qemu_use_session: true
     groups:
       - rocky
-  - name: centos7
+  - name: chrony-rocky10
+    box: metno/rockylinux-10
+    box_url: https://vagrant.met.no/meta/rockylinux-10.json
+    memory: 2048
+    cpus: 2
+    instance_raw_config_args:
+      - 'vm.synced_folder ".", "/vagrant", disabled: true'
+    provider_options:
+      qemu_use_session: true
+    groups:
+      - rocky
+  - name: chrony-centos7
     box: metno/centos-7
     box_url: https://vagrant.met.no/eol/centos-7.json
     memory: 2048
@@ -74,7 +85,7 @@ platforms:
       qemu_use_session: true
     groups:
       - centos
-  - name: centos8-stream
+  - name: chrony-centos8-stream
     box: metno/centosstream-8
     box_url: https://vagrant.met.no/eol/centosstream-8.json
     memory: 2048

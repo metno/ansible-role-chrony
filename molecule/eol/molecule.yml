@@ -8,7 +8,7 @@ driver:
   default_box: 'metno/ubuntu-22.04'
 
 platforms:
-  - name: centos7
+  - name: chrony-centos7
     box: metno/centos-7
     box_url: https://vagrant.met.no/eol/centos-7.json
     memory: 2048
@@ -19,7 +19,7 @@ platforms:
       qemu_use_session: true
     groups:
       - centos
-  - name: centos8-stream
+  - name: chrony-centos8-stream
     box: metno/centosstream-8
     box_url: https://vagrant.met.no/eol/centosstream-8.json
     memory: 2048
@@ -31,7 +31,7 @@ platforms:
     groups:
       - centos
 
-  - name: focal
+  - name: chrony-focal
     box: metno/ubuntu-20.04
     box_url: https://vagrant.met.no/eol/ubuntu-20.04.json
     memory: 2048

@@ -8,7 +8,7 @@
     that:
       ( ansible_distribution|lower == "ubuntu" and ansible_distribution_version|int in [20, 22, 24] )
       or ( ansible_distribution|lower == "fedora" and ansible_distribution_major_version|int in [41] )
-      or ( ansible_os_family|lower == "redhat" and ansible_distribution_major_version|int in [7, 8, 9] )
+      or ( ansible_os_family|lower == "redhat" and ansible_distribution_major_version|int in [7, 8, 9, 10] )
 
 - name: Chrony variables for ubuntu
   ansible.builtin.set_fact:
