@@ -12,6 +12,7 @@ Not able to set time in rhel8 due to bug in rhel8
 Version
 -------
 
+* `4.1.0` --- Add support for RHEL10. The role now supports os_family = redhat
 * `4.0.2` --- Change test setup to use Ansible Molecule
 * `4.0.1` --- Allow Fedora CoreOS 41 and remove support for older fedora versions.
 * `4.0.0` --- Updated for ansible-core 2.16. Removed support for Ubuntu Xenial and Ubuntu Bionic.
@@ -42,15 +43,12 @@ Version
 Requirements
 ------------
 
-This role is limited to
+This role supports
 
-* Ubuntu 24.04 - Noble
-* Ubuntu 22.04 - Jammy
-* Ubuntu 20.04 - Focal
+* RedHat Based OS, version 8,9,10
+* Ubuntu 20.04, 22.04, and 24.04
 * CentOS 7
 * CentOS Stream 8
-* RHEL 8
-* RHEL 9
 * Fedora CoreOS 41
 
 Role Variables
