@@ -1,6 +1,6 @@
 - name: Converge
   become: true
-  hosts: all
+  hosts: vms
   gather_facts: true
 
   roles:

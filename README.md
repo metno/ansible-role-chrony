@@ -12,6 +12,7 @@ Not able to set time in rhel8 due to bug in rhel8
 Version
 -------
 
+* `4.1.1` --- Updated molecule test setup
 * `4.1.0` --- Add support for RHEL10. The role now supports os_family = redhat
 * `4.0.2` --- Change test setup to use Ansible Molecule
 * `4.0.1` --- Allow Fedora CoreOS 41 and remove support for older fedora versions.
@@ -100,9 +101,11 @@ Example Playbook
 Testing
 -------
 
-Testing is done using Ansible Molecule. It uses Vagrant with libvirt as backend.
+Testing is done using Ansible Molecule. It uses our libvirt-provision role as backend.
 
-To run full test run:
+Testing is done Almalinux, and Ubuntu.
+
+To run test:
 
 ```bash
 molecule test
@@ -113,13 +116,9 @@ To run test step by step run:
 ```bash
 molecule create
 molecule converge
+molecule idempotence
 molecule verify
 molecule destroy
-```
-
-To run toward specific scenario use `-s` option.
-```
-molecule test -s ubuntu
 ```
 
 License

@@ -1,6 +1,6 @@
 - name: Verify
   become: true
-  hosts: all
+  hosts: vms
   gather_facts: true
 
   tasks:

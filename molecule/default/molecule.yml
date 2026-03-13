@@ -1,106 +1,39 @@
+---
 driver:
-  name: vagrant
-  provider:
-    name: libvirt
-  provision: no
-  cachier: machine
-  parallel: true
-  default_box: 'metno/ubuntu-22.04'
+  name: default
+  options:
+    managed: true
+    login_cmd_template: "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -l {user} {address}"
 
 platforms:
   - name: chrony-noble
-    box: metno/ubuntu-24.04
-    box_url: https://vagrant.met.no/meta/ubuntu-24.04.json
-    memory: 2048
-    cpus: 2
-    instance_raw_config_args:
-      - 'vm.synced_folder ".", "/vagrant", disabled: true'
-    provider_options:
-      qemu_use_session: true
-    groups:
-      - ubuntu
   - name: chrony-jammy
-    box: metno/ubuntu-22.04
-    box_url: https://vagrant.met.no/meta/ubuntu-22.04.json
-    memory: 2048
-    cpus: 2
-    instance_raw_config_args:
-      - 'vm.synced_folder ".", "/vagrant", disabled: true'
-    provider_options:
-      qemu_use_session: true
-    groups:
-      - ubuntu
-  - name: chrony-focal
-    box: metno/ubuntu-20.04
-    box_url: https://vagrant.met.no/eol/ubuntu-20.04.json
-    memory: 2048
-    cpus: 2
-    instance_raw_config_args:
-      - 'vm.synced_folder ".", "/vagrant", disabled: true'
-    provider_options:
-      qemu_use_session: true
-    groups:
-      - ubuntu
-  - name: chrony-rocky8
-    box: metno/rockylinux-8
-    box_url: https://vagrant.met.no/meta/rockylinux-8.json
-    memory: 2048
-    cpus: 2
-    instance_raw_config_args:
-      - 'vm.synced_folder ".", "/vagrant", disabled: true'
-    provider_options:
-      qemu_use_session: true
-    groups:
-      - rocky
-  - name: chrony-rocky9
-    box: metno/rockylinux-9
-    box_url: https://vagrant.met.no/meta/rockylinux-9.json
-    memory: 2048
-    cpus: 2
-    instance_raw_config_args:
-      - 'vm.synced_folder ".", "/vagrant", disabled: true'
-    provider_options:
-      qemu_use_session: true
-    groups:
-      - rocky
-  - name: chrony-rocky10
-    box: metno/rockylinux-10
-    box_url: https://vagrant.met.no/meta/rockylinux-10.json
-    memory: 2048
-    cpus: 2
-    instance_raw_config_args:
-      - 'vm.synced_folder ".", "/vagrant", disabled: true'
-    provider_options:
-      qemu_use_session: true
-    groups:
-      - rocky
-  - name: chrony-centos7
-    box: metno/centos-7
-    box_url: https://vagrant.met.no/eol/centos-7.json
-    memory: 2048
-    cpus: 2
-    instance_raw_config_args:
-      - 'vm.synced_folder ".", "/vagrant", disabled: true'
-    provider_options:
-      qemu_use_session: true
-    groups:
-      - centos
-  - name: chrony-centos8-stream
-    box: metno/centosstream-8
-    box_url: https://vagrant.met.no/eol/centosstream-8.json
-    memory: 2048
-    cpus: 2
-    instance_raw_config_args:
-      - 'vm.synced_folder ".", "/vagrant", disabled: true'
-    provider_options:
-      qemu_use_session: true
-    groups:
-      - centos
+  - name: chrony-alma8
+  - name: chrony-alma9
+  - name: chrony-alma10
 
-provisioner:
-  name: ansible
-  options:
-    user: root
+ansible:
+  executor:
+    backend: ansible-playbook
+    args:
+      ansible_playbook:
+        - --inventory=${MOLECULE_SCENARIO_DIRECTORY}/inventory.yml
+  env:
+    ANSIBLE_FORCE_COLOR: true
+  cfg:
+    defaults:
+      host_key_checking: false
+  playbooks:
+    create: create.yml
+    destroy: destroy.yml
+    converge: converge.yml
+    prepare: prepare.yml
 
-verifier:
-  name: ansible
+scenario:
+  test_sequence:
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - verify
+    - destroy
