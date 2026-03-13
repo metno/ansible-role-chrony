@@ -1,0 +1,47 @@
+---
+- name: Create
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  pre_tasks:
+    - name: Set variables that need to be set on localhost
+      ansible.builtin.set_fact:
+        # Inject .ssh/id_rsa.pub into VM
+        libvirt_provision_root_ssh_key: "{{ lookup('file', lookup('env', 'HOME') + '/.ssh/id_rsa.pub') }}"
+
+  roles:
+    - role: libvirt-provision
+
+  tasks:
+    - name: Wait for VMs
+      ansible.builtin.wait_for:
+        host: '{{ hostvars[item]["ansible_host"] }}'
+        port: 22
+      loop_control:
+        label: '{{ item }}'
+      loop: '{{ groups["vms"] }}'
+
+    - name: Create instance config
+      block:
+        - name: Populate instance config dict  # noqa jinja
+          ansible.builtin.set_fact:
+            instance_conf_dict:
+              instance: "{{ hostvars[item]['inventory_hostname'] }}"
+              address: "{{ hostvars[item]['ansible_host'] }}"
+              user: "{{ hostvars[item]['ansible_user'] }}"
+              port: 22
+              identity_file: ""
+          loop: '{{ groups["vms"] }}'
+          register: instance_config_dict
+
+        - name: Convert instance config dict to a list
+          ansible.builtin.set_fact:
+            instance_conf: "{{ instance_config_dict.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
+
+        - name: Dump instance config
+          ansible.builtin.copy:
+            content: |
+              {{ instance_conf | to_nice_yaml(indent=2) }}
+            dest: "{{ molecule_instance_config }}"
+            mode: "0600"

@@ -1,0 +1,6 @@
+---
+roles:
+  - src: https://github.com/metno/ansible-role-libvirt-provision.git
+    scm: git
+    name: libvirt-provision
+    version: "2.0.2"

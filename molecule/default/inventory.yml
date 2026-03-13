@@ -1,0 +1,164 @@
+---
+all:
+  hosts:
+    localhost:
+      ansible_connection: local
+
+  vars:
+    libvirt_provision_distros:
+      noble:
+        url: https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img
+        os_variant: ubuntu24.04
+        boot: none
+      jammy:
+        url: https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+        os_variant: ubuntu22.04
+        boot: none
+      alma8:
+        url: https://almalinux.uib.no/8/cloud/x86_64/images/AlmaLinux-8-GenericCloud-latest.x86_64.qcow2
+        os_variant: almalinux8
+        boot: none
+      alma9:
+        url: https://almalinux.uib.no/9/cloud/x86_64/images/AlmaLinux-9-GenericCloud-latest.x86_64.qcow2
+        os_variant: almalinux9
+        boot: menu=on
+      alma10:
+        url: https://almalinux.uib.no/10/cloud/x86_64_v2/images/AlmaLinux-10-GenericCloud-latest.x86_64_v2.qcow2
+        os_variant: almalinux10
+        boot: menu=on
+
+    # Use libvirt user session when creating VMs
+    libvirt_provision_connection: qemu:///session
+
+    # Set the tmp folder for cloud images and files to non default
+    # libvirt_provision_temp_path: '{{ lookup("env", "HOME") + "/tmp" }}'
+
+    # Set password to root
+    libvirt_provision_root_password: root
+
+    libvirt_provision_virtual_machine_net_config: []
+
+    # Default config for all my VMs, overrides default in Ansible role
+    libvirt_provision_virtual_machine_config:
+      memory_mb: 4096
+      disk_gb: 20
+      vcpus: 2
+      distro: noble
+      networks:
+        - bridge: virbr0
+          model:
+            type: virtio
+
+    # Define all our VMs
+    libvirt_provision_virtual_machines:
+      - name: chrony-noble
+        distro: noble
+        net_config:
+          version: 2
+          ethernets:
+            enp1s0:
+              dhcp4: false
+              addresses:
+                - 192.168.122.130/24
+              routes:
+                - to: default
+                  via: 192.168.122.1
+              nameservers:
+                addresses:
+                  - 1.1.1.1
+                  - 1.0.0.1
+      - name: chrony-jammy
+        distro: jammy
+        net_config:
+          version: 2
+          ethernets:
+            enp1s0:
+              dhcp4: false
+              addresses:
+                - 192.168.122.131/24
+              routes:
+                - to: default
+                  via: 192.168.122.1
+              nameservers:
+                addresses:
+                  - 1.1.1.1
+                  - 1.0.0.1
+      - name: chrony-alma8
+        distro: alma8
+        memory_mb: 3000
+        vcpus: 2
+        net_config:
+          version: 2
+          ethernets:
+            eth0:
+              dhcp4: false
+              addresses:
+                - 192.168.122.132/24
+              routes:
+                - to: 0.0.0.0/0
+                  via: 192.168.122.1
+              nameservers:
+                addresses:
+                  - 1.1.1.1
+                  - 1.0.0.1
+      - name: chrony-alma9
+        distro: alma9
+        memory_mb: 3000
+        vcpus: 2
+        net_config:
+          version: 2
+          ethernets:
+            eth0:
+              dhcp4: false
+              addresses:
+                - 192.168.122.133/24
+              routes:
+                - to: 0.0.0.0/0
+                  via: 192.168.122.1
+              nameservers:
+                addresses:
+                  - 1.1.1.1
+                  - 1.0.0.1
+      - name: chrony-alma10
+        distro: alma10
+        memory_mb: 3000
+        vcpus: 2
+        net_config:
+          version: 2
+          ethernets:
+            eth0:
+              dhcp4: false
+              addresses:
+                - 192.168.122.134/24
+              routes:
+                - to: 0.0.0.0/0
+                  via: 192.168.122.1
+              nameservers:
+                addresses:
+                  - 1.1.1.1
+                  - 1.0.0.1
+
+  children:
+    vms:
+      hosts:
+        chrony-noble:
+          ansible_host: 192.168.122.130
+        chrony-jammy:
+          ansible_host: 192.168.122.131
+        chrony-alma8:
+          ansible_host: 192.168.122.132
+        chrony-alma9:
+          ansible_host: 192.168.122.133
+        chrony-alma10:
+          ansible_host: 192.168.122.134
+
+      vars:
+        ansible_user: root
+
+    service_basic_os_configuration:
+      children:
+        vms:
+
+    molecule:
+      children:
+        vms:

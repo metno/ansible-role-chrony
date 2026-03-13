@@ -1,0 +1,28 @@
+---
+- name: Destroy
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  # no_log: "{{ molecule_no_log }}"
+
+
+  pre_tasks:
+    - name: Set variable for destroying VMs
+      ansible.builtin.set_fact:
+        libvirt_provision_root_ssh_key: "{{ lookup('file', lookup('env', 'HOME') + '/.ssh/id_rsa.pub') }}"
+        state: absent
+
+  roles:
+    - role: libvirt-provision
+
+  tasks:
+    - name: Populate instance config
+      ansible.builtin.set_fact:
+        instance_conf: {}
+
+    - name: Dump instance config
+      ansible.builtin.copy:
+        content: |
+          {{ instance_conf | to_nice_yaml(indent=2) }}
+        dest: "{{ molecule_instance_config }}"
+        mode: "0600"
