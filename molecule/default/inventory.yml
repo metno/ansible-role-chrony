@@ -6,6 +6,10 @@ all:
 
   vars:
     libvirt_provision_distros:
+      resolute:
+        url: https://cloud-images.ubuntu.com/resolute/current/resolute-server-cloudimg-amd64.img
+        os_variant: ubuntu24.04
+        boot: none
       noble:
         url: https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img
         os_variant: ubuntu24.04
@@ -51,6 +55,23 @@ all:
 
     # Define all our VMs
     libvirt_provision_virtual_machines:
+      - name: chrony-resolute
+        distro: resolute
+        net_config:
+          version: 2
+          ethernets:
+            enp1s0:
+              dhcp4: false
+              addresses:
+                - 192.168.122.129/24
+              routes:
+                - to: default
+                  via: 192.168.122.1
+              nameservers:
+                addresses:
+                  - 1.1.1.1
+                  - 1.0.0.1
+
       - name: chrony-noble
         distro: noble
         net_config:
@@ -141,6 +162,8 @@ all:
   children:
     vms:
       hosts:
+        chrony-resolute:
+          ansible_host: 192.168.122.129
         chrony-noble:
           ansible_host: 192.168.122.130
         chrony-jammy:
