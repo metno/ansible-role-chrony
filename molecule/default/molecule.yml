@@ -6,6 +6,7 @@ driver:
     login_cmd_template: "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -l {user} {address}"
 
 platforms:
+  - name: chrony-resolute
   - name: chrony-noble
   - name: chrony-jammy
   - name: chrony-alma8

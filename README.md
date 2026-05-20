@@ -12,6 +12,7 @@ Not able to set time in rhel8 due to bug in rhel8
 Version
 -------
 
+* `5.0.0` --- Added support for Resolute Raccoon and remove Focal
 * `4.1.1` --- Updated molecule test setup
 * `4.1.0` --- Add support for RHEL10. The role now supports os_family = redhat
 * `4.0.2` --- Change test setup to use Ansible Molecule
@@ -47,7 +48,7 @@ Requirements
 This role supports
 
 * RedHat Based OS, version 8,9,10
-* Ubuntu 20.04, 22.04, and 24.04
+* Ubuntu 22.04, 24.04, and 26.04
 * CentOS 7
 * CentOS Stream 8
 * Fedora CoreOS 41
