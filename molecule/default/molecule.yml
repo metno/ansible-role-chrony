@@ -9,6 +9,7 @@ platforms:
   - name: chrony-resolute
   - name: chrony-noble
   - name: chrony-jammy
+  - name: chrony-trixie
   - name: chrony-alma8
   - name: chrony-alma9
   - name: chrony-alma10
