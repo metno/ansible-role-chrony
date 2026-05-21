@@ -9,7 +9,7 @@
   pre_tasks:
     - name: Set variable for destroying VMs
       ansible.builtin.set_fact:
-        libvirt_provision_root_ssh_key: "{{ lookup('file', lookup('env', 'HOME') + '/.ssh/id_rsa.pub') }}"
+        libvirt_provision_root_ssh_key: "{{ lookup('file', lookup('env', 'HOME') + '/.ssh/id_rsa.pub', errors='ignore') or lookup('pipe', 'ssh-add -L 2>/dev/null | head -1') }}"
         state: absent
 
   roles:

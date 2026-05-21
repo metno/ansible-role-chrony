@@ -19,14 +19,14 @@
 
     - name: Chrony variables for redhat related oses
       ansible.builtin.set_fact:
-        chrony_path: /etc/
+        chrony_path: /etc
         chrony_service: chronyd.service
         ntp_service: ntpd
       when: ansible_os_family | lower == "redhat"
 
-    - name: Chrony variables for ubuntu
+    - name: Chrony variables for debian family
       ansible.builtin.set_fact:
-        chrony_path: /etc/chrony/
+        chrony_path: /etc/chrony
         chrony_service: chrony
         ntp_service: ntp
       when: ansible_os_family | lower == "debian"

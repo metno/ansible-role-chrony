@@ -7,8 +7,7 @@
   pre_tasks:
     - name: Set variables that need to be set on localhost
       ansible.builtin.set_fact:
-        # Inject .ssh/id_rsa.pub into VM
-        libvirt_provision_root_ssh_key: "{{ lookup('file', lookup('env', 'HOME') + '/.ssh/id_rsa.pub') }}"
+        libvirt_provision_root_ssh_key: "{{ lookup('file', lookup('env', 'HOME') + '/.ssh/id_rsa.pub', errors='ignore') or lookup('pipe', 'ssh-add -L 2>/dev/null | head -1') }}"
 
   roles:
     - role: libvirt-provision
